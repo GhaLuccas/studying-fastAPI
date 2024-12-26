@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import typing
 
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
 
 app = FastAPI()
 
@@ -21,3 +22,8 @@ async def read_item(item_id:int):
 async def me():
     data : dict[str , str] = {"username":"userdata"}
     return data
+
+
+@app.get("/item/")
+async def read_quey(skip:int=0,limit:int=2):
+    return fake_items_db[skip: skip + limit ]
